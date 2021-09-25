@@ -29,19 +29,33 @@ ________________________________________________
 
     > 모든 아이돌멤버의 이름과 출생 월만 조회하시오
         ---------------------------------------------------
-    
+        1. select REAL_NAME, BIRTHDAY from idol_member
+            where REAL_NAME != '';
 
+        2. select Real_name, substr(Birthday, 5, 2) from idol_member
+            where Real_name != '';
+
+        3. select substr(REAL_name,1,4) Real_Name, substr(BIRTHDAY, 5,2) from idol_member
+           where real_name!='';
         ---------------------------------------------------
 
     > 아이돌그룹 중 'JYP'로 시작하는 모든 그룹정보를 출력하시오
         ----------------------------------------------------
-    
+        1. select * from idol_group
+           where COMPANY like 'JYP%';
+
+        2. select * from idol_group
+           where COMPANY REGEXP '[JYP]';
+
+        3. select *, substr(company,1) COMPANY from lecture.idol_group
+           where company like 'JYP%';
 
         ----------------------------------------------------
 
     > 모든 아이돌멤버의 나이를 출력하시오
         ----------------------------------------------------
-    
+        select *, 2021-(substr(BIRTHDAY,1,4))age from idol_member
+        where Real_NAME !='';
 
         ----------------------------------------------------    
 
@@ -56,7 +70,8 @@ ________________________________________________
 
     > 모든 아이돌그룹에 대하여 'BTS♥boys'의 형식과 같이 출력하시오
         ----------------------------------------------------
-    
+        select *, concat('BTS', '♥boys')Print from idol_member
+        where group_name !='';
 
         ----------------------------------------------------
 
@@ -80,7 +95,7 @@ ________________________________________________
     > 아이돌 그룹에서 회사명 '~ 엔터테인먼트'를 '~ ENTERTAINMENT'로
       출력하시오
        ----------------------------------------------------
-    
+        select *, replace(COMPANY, '엔터테인먼트', 'ENTERTAINMENT') COMPANY from idol_group;
 
        ----------------------------------------------------
 
@@ -165,7 +180,9 @@ ________________________________________________
     
     > 아이돌멤버 중에서 생일이 지나지 않은 멤버를 모두 출력하시오
         ----------------------------------------------------
-
+        select *, BIRTHDAY
+        from idol_member
+        where real_name !='';
 
 
         ----------------------------------------------------
