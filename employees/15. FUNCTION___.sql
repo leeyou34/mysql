@@ -45,7 +45,10 @@ ________________________________________________
            where COMPANY like 'JYP%';
 
         2. select * from idol_group
-           where COMPANY REGEXP '[JYP]';
+           where COMPANY REGEXP 'JYP';
+
+           select * from idol_group
+           where COMPANY REGEXP ('^JYP');
 
         3. select *, substr(company,1) COMPANY from lecture.idol_group
            where company like 'JYP%';
@@ -55,6 +58,9 @@ ________________________________________________
     > 모든 아이돌멤버의 나이를 출력하시오
         ----------------------------------------------------
         select *, 2021-(substr(BIRTHDAY,1,4))age from idol_member
+        where Real_NAME !='';
+
+        select *, (Now())-(substr(BIRTHDAY,1,4)+1)age from idol_member
         where Real_NAME !='';
 
         ----------------------------------------------------    
@@ -96,6 +102,8 @@ ________________________________________________
       출력하시오
        ----------------------------------------------------
         select *, replace(COMPANY, '엔터테인먼트', 'ENTERTAINMENT') COMPANY from idol_group;
+
+        select replace(COMPANY, '엔터테인먼트'. 'ENTERTAINMENT') `COMPANY`, Group_name from idol_group;
 
        ----------------------------------------------------
 
@@ -180,11 +188,21 @@ ________________________________________________
     
     > 아이돌멤버 중에서 생일이 지나지 않은 멤버를 모두 출력하시오
         ----------------------------------------------------
-        select *, BIRTHDAY
+       1. select *, BIRTHDAY
         from idol_member
         where real_name !='';
 
 
+        2. select group_name, member_name, birthday from idol_member where substr(birthday, 5,4) - date_format(now(), '%m%d') > 0;
+
+        3. select group_name, member_name, birthday from idol_member where substr(birthday, 5,4) - date_format(now(), '%m%d') > 0 Order by birthday;
+    
+        4. select group_name, member_name, birthday from idol_member where month(now())<=month(birthday) and day(now()) <=day(birthday);
+       
+        5. select group_name, member_name, substr(birthday,5,4) `birth`
+        from idol_member
+        where date_format(birthday, '%m%d') >= DATE_format(now(), '%m%d')
+        order by `birth`;
         ----------------------------------------------------
 
 
